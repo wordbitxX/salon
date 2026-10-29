@@ -2,8 +2,10 @@ import { getReports } from "@/lib/admin-data";
 import { fmtPKR } from "@/lib/site";
 import { PageTitle, Card, Stat, Table, Td } from "@/components/admin/ui";
 import { BarChart, LineChart, Donut } from "@/components/admin/Charts";
+import { requirePermission } from "@/lib/auth";
 export const metadata = { title: "Reports" };
 export default async function ReportsPage() {
+  await requirePermission("reports:view");
   const r = await getReports(); const total = r.byStaff.reduce((a, b) => a + Number(b.rev || 0), 0); const n = r.byStaff.reduce((a, b) => a + b.n, 0);
   const cancelled = r.byStatus.find((s) => s.status === "cancelled")?.n || 0; const all = r.byStatus.reduce((a, b) => a + b.n, 0);
   return (<><PageTitle title="Reports" sub="Revenue, staff performance & service mix" />

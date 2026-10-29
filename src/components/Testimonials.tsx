@@ -1,4 +1,4 @@
-import Image from "next/image";
+import InitialsAvatar from "./ui/InitialsAvatar";
 import { testimonials } from "@/lib/content";
 import Stars from "./ui/Stars";
 import Reveal from "./Reveal";
@@ -14,7 +14,7 @@ export default function Testimonials({ limit = 6, withSchema = false }: { limit?
           <div className="flex items-center justify-between"><Stars rating={t.rating} /><span className="text-[10px] font-semibold uppercase tracking-wider text-ink-soft">Verified client</span></div>
           <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft sm:text-[15px]">“{t.review}”</blockquote>
           <footer className="mt-5 flex items-center gap-3 border-t border-ink/5 pt-4">
-            <Image src={t.image} alt={`${t.name}, ÉLAN client from ${t.area}`} width={44} height={44} className="h-11 w-11 rounded-full object-cover" loading="lazy" />
+            <InitialsAvatar name={t.name} decorative textClassName="text-sm" className="h-11 w-11 shrink-0 rounded-full ring-1 ring-gold/25" />
             <div><p className="text-sm font-semibold text-ink">{t.name}</p><p className="text-xs text-ink-soft">{t.service} · {t.area}, Lahore</p></div>
           </footer>
         </Reveal>

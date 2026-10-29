@@ -9,21 +9,22 @@ import { waLink, waMessages, SITE_URL } from "@/lib/site";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Stars from "@/components/ui/Stars";
 import ServiceCard from "@/components/ServiceCard";
+import InitialsAvatar from "@/components/ui/InitialsAvatar";
 import JsonLd from "@/components/JsonLd";
 import { WhatsAppIcon, InstagramIcon } from "@/components/Icons";
 export function generateStaticParams() { return staff.map((s) => ({ slug: s.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params; const m = getStaff(slug); if (!m) return {};
-  return buildMetadata({ title: `${m.name} — ${m.role} in Lahore`, description: `${m.bio} Book ${m.name.split(" ")[0]} at ÉLAN Beauty Studio, Gulberg Lahore. Rated ${m.rating}/5 from ${m.reviews} reviews.`, path: `/our-team/${m.slug}`, image: m.image });
+  return buildMetadata({ title: `${m.name} — ${m.role} in Lahore`, description: `${m.bio} Book ${m.name.split(" ")[0]} at ÉLAN Beauty Studio, Gulberg Lahore. Rated ${m.rating}/5 from ${m.reviews} reviews.`, path: `/our-team/${m.slug}`, image: m.image || "/images/interior.jpg" });
 }
 export default async function StaffPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const m = getStaff(slug); if (!m) notFound();
   const mine = services.filter((s) => s.staff.includes(m.slug));
   return (
     <>
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "Person", name: m.name, jobTitle: m.role, image: m.image, url: `${SITE_URL}/our-team/${m.slug}`, worksFor: { "@id": `${SITE_URL}/#salon` }, sameAs: [m.instagram] }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "Person", name: m.name, jobTitle: m.role, image: m.image || undefined, url: `${SITE_URL}/our-team/${m.slug}`, worksFor: { "@id": `${SITE_URL}/#salon` }, sameAs: [m.instagram] }} />
       <section className="bg-cream"><div className="container-x grid gap-10 py-10 sm:py-14 lg:grid-cols-5 lg:items-center">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] lg:col-span-2"><Image src={m.image} alt={m.alt} fill priority sizes="(max-width:1024px) 100vw, 40vw" className="object-cover" /></div>
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] lg:col-span-2">{m.image ? <Image src={m.image} alt={m.alt} fill priority sizes="(max-width:1024px) 100vw, 40vw" className="object-cover" /> : <InitialsAvatar name={m.name} decorative textClassName="text-[7rem]" className="absolute inset-0" />}</div>
         <div className="lg:col-span-3">
           <Breadcrumbs items={[{ name: "Our Team", href: "/our-team" }, { name: m.name, href: `/our-team/${m.slug}` }]} />
           <p className="eyebrow mt-6">{m.role}</p><h1 className="h-display mt-3">{m.name}</h1>
