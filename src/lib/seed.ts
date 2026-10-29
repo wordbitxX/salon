@@ -5,15 +5,22 @@ import { services } from "./services";
 import { staff } from "./staff";
 import { testimonials } from "./content";
 import { genReference } from "./booking";
+import { ensureSchema } from "./schema-init";
+import { ensureDefaultUsers } from "./auth";
 
 const names = [["Amna Rehman", "+92 300 1112233", "amna.r@example.com"], ["Sana Tariq", "+92 321 4455667", "sana.t@example.com"], ["Hina Javed", "+92 333 7788990", "hina.j@example.com"], ["Rabia Iqbal", "+92 301 2233445", "rabia.i@example.com"], ["Mariam Sheikh", "+92 345 6677889", "mariam.s@example.com"], ["Zainab Ali", "+92 302 9988776", "zainab.a@example.com"], ["Fatima Noor", "+92 311 5544332", "fatima.n@example.com"], ["Iqra Hassan", "+92 322 1122334", "iqra.h@example.com"], ["Sadia Khan", "+92 331 4433221", "sadia.k@example.com"], ["Nimra Butt", "+92 303 8877665", "nimra.b@example.com"], ["Ayesha Siddiq", "+92 344 2211009", "ayesha.s@example.com"], ["Laiba Ahmed", "+92 312 6655443", "laiba.a@example.com"], ["Mahnoor Raza", "+92 334 9900112", "mahnoor.r@example.com"], ["Kinza Malik", "+92 305 3344556", "kinza.m@example.com"], ["Hafsa Iqbal", "+92 323 7766554", "hafsa.i@example.com"], ["Anum Javaid", "+92 335 1100998", "anum.j@example.com"]];
 const statuses = ["confirmed", "confirmed", "confirmed", "completed", "completed", "completed", "completed", "pending", "cancelled"];
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 let seeded = false;
 export async function ensureSeed() {
-  if (seeded) return; seeded = true;
+  if (seeded) return;
+  await ensureSchema();
+  await ensureDefaultUsers();
   const [{ value }] = await db.select({ value: count() }).from(customers);
-  if (value > 0) return;
+  if (value > 0) {
+    seeded = true;
+    return;
+  }
   const custRows = await db.insert(customers).values(names.map(([name, phone, email], i) => ({ name, phone, email, preferredStaff: staff[i % staff.length].name, notes: i % 3 === 0 ? "Prefers ammonia-free colour. Allergic to fragrance-heavy products." : i % 3 === 1 ? "Likes quiet room; usually books Saturday mornings." : null }))).returning();
   const appts: (typeof appointments.$inferInsert)[] = []; const today = new Date();
   let seed = 7; const rnd = () => { seed = (seed * 1103515245 + 12345) >>> 0; return seed / 4294967296; };
@@ -42,4 +49,5 @@ export async function ensureSeed() {
     { name: "Bushra Tahir", phone: "+92 333 7770003", email: "bushra@example.com", service: "Skin", message: "Do you offer a course discount for 6 HydraFacials? I'd like to start next week.", read: true },
   ]);
   await db.insert(reviews).values(testimonials.map((t) => ({ customerName: t.name, service: t.service, rating: String(t.rating), review: t.review, approved: true })));
+  seeded = true;
 }

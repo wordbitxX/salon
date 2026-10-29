@@ -2,11 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Staff } from "@/lib/staff";
 import Stars from "./ui/Stars";
+import InitialsAvatar from "./ui/InitialsAvatar";
 export default function StaffCard({ m }: { m: Staff }) {
   return (
     <article className="card card-hover group overflow-hidden">
       <div className="relative aspect-[4/5] overflow-hidden">
-        <Image src={m.image} alt={m.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+        {m.image ? (
+          <Image src={m.image} alt={m.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+        ) : (
+          <InitialsAvatar name={m.name} decorative textClassName="text-7xl sm:text-8xl" className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" />
+        )}
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 to-transparent p-5 text-ivory">
           <h3 className="font-serif text-2xl">{m.name}</h3>
           <p className="text-xs uppercase tracking-wider text-ivory/80">{m.role}</p>

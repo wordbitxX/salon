@@ -7,8 +7,10 @@ import { fmtTime } from "@/lib/booking";
 import { PageTitle, Card, Stat, Badge, Table, Td } from "@/components/admin/ui";
 import { updateCustomerNotes } from "../../actions";
 import StatusButtons from "../../appointments/StatusButtons";
+import { requirePermission } from "@/lib/auth";
 export const metadata = { title: "Customer" };
 export default async function CustomerPage({ params }: { params: Promise<{ id: string }> }) {
+  await requirePermission("customers:view");
   const { id } = await params; const data = await getCustomer(Number(id)); if (!data) notFound();
   const { c, appts } = data; const done = appts.filter((a) => a.status === "completed"); const spent = done.reduce((a, b) => a + b.price, 0);
   const next = appts.filter((a) => ["pending", "confirmed"].includes(a.status) && a.date >= new Date().toISOString().slice(0, 10)).sort((a, b) => a.date.localeCompare(b.date))[0];

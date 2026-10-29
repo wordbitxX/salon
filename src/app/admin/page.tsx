@@ -5,14 +5,22 @@ import { fmtTime } from "@/lib/booking";
 import { Stat, Card, PageTitle, Badge, Table, Td } from "@/components/admin/ui";
 import { BarChart, LineChart, Donut } from "@/components/admin/Charts";
 import StatusButtons from "./appointments/StatusButtons";
+import { requirePermission } from "@/lib/auth";
 export const metadata = { title: "Overview" };
-export default async function AdminHome() {
+export default async function AdminHome({ searchParams }: { searchParams: Promise<{ denied?: string }> }) {
+  const user = await requirePermission("dashboard:view");
+  const { denied } = await searchParams;
   const o = await getOverview();
   const growth = o.lastRevenue ? Math.round(((o.revenue - o.lastRevenue) / o.lastRevenue) * 100) : 0;
   const colors: Record<string, string> = { completed: "#10b981", confirmed: "#0ea5e9", pending: "#f59e0b", cancelled: "#ef4444" };
   return (
     <>
-      <PageTitle title="Good day, Sofia" sub={new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} action={<Link href="/booking" className="btn-primary !py-2.5 text-xs">+ New Booking</Link>} />
+      {denied && (
+        <p role="alert" className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-900">
+          Your <strong>{user.role}</strong> login cannot open that page. Ask the salon owner if you need more access.
+        </p>
+      )}
+      <PageTitle title={`Good day, ${user.name.split(" ")[0]}`} sub={new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} action={<Link href="/booking" className="btn-primary !py-2.5 text-xs">+ New Booking</Link>} />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Stat label="Today's Appointments" value={o.todayAppts.length} delta={`${o.todayAppts.filter((a) => a.status === "completed").length} completed`} />
         <Stat label="Upcoming Appointments" value={o.upcoming.length + "+"} delta="Next 7 days" />

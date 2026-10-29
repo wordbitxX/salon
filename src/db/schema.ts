@@ -63,3 +63,36 @@ export const reviews = pgTable("reviews", {
   approved: boolean("approved").notNull().default(true),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+/* ------------------------------------------------------------------ *
+ * Admin logins, sessions & audit trail
+ * ------------------------------------------------------------------ */
+
+export const adminUsers = pgTable("admin_users", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  role: text("role").notNull().default("receptionist"),
+  active: boolean("active").notNull().default(true),
+  mustChangePassword: boolean("must_change_password").notNull().default(true),
+  lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const adminSessions = pgTable("admin_sessions", {
+  id: text("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => adminUsers.id, { onDelete: "cascade" }),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const activityLog = pgTable("activity_log", {
+  id: serial("id").primaryKey(),
+  actorId: integer("actor_id"),
+  actorName: text("actor_name").notNull(),
+  actorRole: text("actor_role").notNull(),
+  action: text("action").notNull(),
+  detail: text("detail"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});

@@ -1,11 +1,35 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SITE_URL, site } from "@/lib/site";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-serif", display: "swap" });
-const sans = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-sans", display: "swap" });
+/**
+ * Fonts are self-hosted (from @fontsource) instead of loaded from
+ * fonts.googleapis.com at build time — no build/deploy dependency on a
+ * third-party host, and no layout shift while Google Fonts loads.
+ */
+const serif = localFont({
+  src: [
+    { path: "../fonts/cormorant-garamond-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/cormorant-garamond-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/cormorant-garamond-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
+  variable: "--font-serif",
+  display: "swap",
+  fallback: ["Cormorant Garamond", "Georgia", "serif"],
+});
+const sans = localFont({
+  src: [
+    { path: "../fonts/manrope-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/manrope-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/manrope-latin-600-normal.woff2", weight: "600", style: "normal" },
+    { path: "../fonts/manrope-latin-700-normal.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-sans",
+  display: "swap",
+  fallback: ["Manrope", "system-ui", "sans-serif"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
