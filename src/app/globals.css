@@ -11,8 +11,8 @@
   --color-gold-deep: #8f6f3f;
   --color-blush: #e9d4cb;
   --color-rose: #c78d7b;
-  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
-  --font-sans: var(--font-sans), "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --shadow-soft: 0 10px 40px -12px rgb(31 27 24 / 0.12);
   --shadow-card: 0 2px 12px -2px rgb(31 27 24 / 0.08);
 }
@@ -50,8 +50,6 @@ h1,h2,h3,.font-serif { font-family: var(--font-serif); }
 .prose-elan strong { @apply text-ink font-semibold; }
 
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-.reveal.in { opacity: 1; transform: none; }
 .animate-rise { animation: rise .8s ease both; }
 .delay-1 { animation-delay: .12s } .delay-2 { animation-delay: .24s } .delay-3 { animation-delay: .36s }
 @media (prefers-reduced-motion: reduce) {
@@ -213,3 +211,11 @@ h1,h2,h3,.font-serif { font-family: var(--font-serif); }
   .site-header__menu-toggle,
   .site-header__panel { display: none; }
 }
+
+/* A softer, editorial frame for the salon's first impression. */
+.hero-luxury { background: radial-gradient(ellipse at 10% 15%, #fffaf4 0%, transparent 42%), linear-gradient(120deg, #f7f1e9, #e9ded0); }
+.hero-luxury .h-display { max-width: 10ch; font-size: clamp(3.5rem, 6.2vw, 6.25rem); line-height: .98; letter-spacing: -.045em; }
+.hero-luxury .eyebrow::before { content: ""; display: inline-block; width: 2.5rem; height: 1px; margin: 0 .8rem .3em 0; background: currentColor; }
+.hero-portrait { border-radius: 48% 48% 3px 3px; border: 7px solid rgba(255,255,255,.52); box-shadow: 0 24px 70px -25px rgba(57,38,23,.4); }
+.hero-portrait img { object-position: center 35%; }
+@media (max-width: 639px) { .hero-luxury .h-display { font-size: clamp(3.2rem, 13vw, 4.5rem); } }

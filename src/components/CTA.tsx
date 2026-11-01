@@ -38,6 +38,7 @@ export function WordbitXShowcase() {
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={wordbitx.url} target="_blank" rel="noopener noreferrer" className="btn-primary">Build Your Business With WordbitX <ArrowIcon width={16} height={16} /></a>
             <Link href="/admin" className="btn-outline">View Admin Demo</Link>
+            <a href="https://saloonai.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-outline">Explore Saloon AI Booking System <ArrowIcon width={16} height={16} /></a>
           </div>
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-ink/10 pt-5 text-sm">
             <span className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-soft">Talk to WordbitX</span>

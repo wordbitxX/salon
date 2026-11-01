@@ -30,12 +30,12 @@ export default function HomePage() {
   return (
     <>
       {/* 1. Hero */}
-      <section className="relative overflow-hidden bg-cream">
+      <section className="hero-luxury relative overflow-hidden bg-cream">
         <div aria-hidden className="pointer-events-none absolute -left-24 top-24 h-80 w-80 rounded-full bg-blush/40 blur-3xl" />
-        <div className="container-x grid items-center gap-10 py-12 sm:min-h-[calc(100svh-4rem)] lg:grid-cols-12 lg:py-16">
+        <div className="container-x grid items-center gap-12 py-12 sm:min-h-[calc(100svh-4rem)] lg:grid-cols-12 lg:gap-20 lg:py-20">
           <div className="lg:col-span-6">
             <p className="eyebrow animate-rise">Lahore's Premium Beauty Experience</p>
-            <h1 className="h-display mt-4 animate-rise delay-1">Where Beauty Meets <em className="not-italic text-gold">Confidence.</em></h1>
+            <h1 className="h-display mt-4 animate-rise delay-1">Where Beauty Meets <em className="font-normal text-gold-deep">Confidence.</em></h1>
             <p className="lead mt-6 max-w-xl animate-rise delay-2">Expert stylists, skin specialists and bridal artists in Gulberg, Lahore — for transformations that feel effortlessly you. Premium treatments, personal attention, visible results.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row animate-rise delay-3">
               <Link href="/booking" className="group inline-flex items-center justify-center gap-3 rounded-full bg-ink px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-ivory shadow-soft transition duration-300 hover:bg-gold-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
@@ -54,14 +54,13 @@ export default function HomePage() {
             </dl>
           </div>
           <div className="relative lg:col-span-6">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-soft sm:aspect-[5/6] lg:aspect-[4/5]">
-              <Image src="/images/hero.jpg" alt="Client with glossy styled hair smiling at ÉLAN Beauty Studio, a premium beauty salon in Gulberg Lahore" fill priority fetchPriority="high" sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+            <div className="hero-portrait relative aspect-[4/5] overflow-hidden shadow-soft sm:aspect-[5/6] lg:aspect-[4/5]">
+              <Image src="/images/hero.jpg" alt="Beauty editorial portrait of a woman with glossy styled hair" fill priority fetchPriority="high" sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
             </div>
-            <div className="absolute -bottom-5 -left-3 hidden w-60 rounded-2xl bg-white p-4 shadow-soft sm:block lg:-left-10 animate-rise delay-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-ink-soft">Next available</p>
-              <p className="mt-1 font-serif text-lg text-ink">Today · 4:30 PM</p>
-              <p className="text-xs text-ink-soft">Signature Glow Facial with Maya</p>
-              <Link href="/booking?service=signature-facial" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-gold-deep hover:text-gold">Reserve slot <ArrowIcon width={12} height={12} /></Link>
+            <div className="absolute -bottom-5 -left-3 hidden w-60 border border-gold/20 bg-ivory/95 p-5 shadow-soft backdrop-blur sm:block lg:-left-10 animate-rise delay-3">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-deep">The ÉLAN experience</p>
+              <p className="mt-2 font-serif text-xl text-ink">Beauty, thoughtfully curated.</p>
+              <Link href="/services" className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-gold-deep hover:text-gold">Explore our services <ArrowIcon width={12} height={12} /></Link>
             </div>
             <div className="absolute -top-4 right-4 hidden items-center gap-2 rounded-full bg-ink px-4 py-2 text-xs font-medium text-ivory shadow-soft md:flex"><StarIcon className="text-gold" /> 4.9 · Rated by 1,800+ clients</div>
           </div>
