@@ -13,8 +13,8 @@ export default function TermsPage() {
         <h2>Consultations & patch tests</h2><p>Colour, lash and some skin services require a patch test 48 hours before the first appointment. Please disclose allergies, medications, pregnancy and recent treatments.</p>
         <h2>Satisfaction</h2><p>If you're unhappy with a result, tell us within 7 days and we will make it right at no additional cost wherever possible.</p>
         <h2>Salon etiquette</h2><p>ÉLAN is a women-only space. To keep it calm for everyone, we ask that phones be on silent in treatment rooms and that children are accompanied at all times.</p>
-        <h2>Contact</h2><p>hello@elanbeauty.pk · +92 325 1888841</p>
-        <p className="text-xs">Demonstration website by <a href="https://www.wordbitxtech.com/" target="_blank" rel="noopener noreferrer">WordbitX</a>; terms shown are illustrative.</p>
+        <h2>Contact</h2><p>info@wordbitx.pk · +92 325 1888841</p>
+        <p className="text-xs">Demonstration website by <a href="https://wordbitx.pk/" target="_blank" rel="noopener noreferrer">WordbitX</a>; terms shown are illustrative.</p>
       </div></section>
     </>
   );

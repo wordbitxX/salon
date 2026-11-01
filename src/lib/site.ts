@@ -1,4 +1,4 @@
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elanbeauty.demo.wordbitxtech.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elanbeauty.demo.wordbitx.pk";
 export const site = {
   name: "ÉLAN Beauty Studio",
   shortName: "ÉLAN",
@@ -7,7 +7,7 @@ export const site = {
   phone: "+92 325 1888841",
   phoneHref: "tel:+923251888841",
   whatsapp: "923251888841",
-  email: "hello@elanbeauty.pk",
+  email: "info@wordbitx.pk",
   address: { street: "12-B, Main Boulevard, Gulberg III", city: "Lahore", region: "Punjab", postal: "54660", country: "PK" },
   geo: { lat: 31.5169, lng: 74.3484 },
   mapsEmbed: "https://www.google.com/maps?q=31.5169,74.3484&z=16&hl=en&output=embed",
@@ -31,13 +31,13 @@ export const site = {
 };
 export const wordbitx = {
   name: "WordbitX",
-  url: "https://www.wordbitxtech.com/",
+  url: "https://wordbitx.pk/",
   tagline: "We create amazing digital products.",
-  /** WordbitX sales line (US) — for agency/demo enquiries, not salon bookings. */
-  phone: "+1 (929) 619 7699",
-  phoneHref: "tel:+19296197699",
-  whatsapp: "19296197699",
-  phoneLabel: "US / WhatsApp",
+  /** WordbitX sales and support contact. */
+  phone: site.phone,
+  phoneHref: site.phoneHref,
+  whatsapp: site.whatsapp,
+  phoneLabel: "Pakistan / WhatsApp",
 };
 /** Pre-filled WhatsApp link for WordbitX agency enquiries. */
 export function wordbitxWaLink(message = wordbitxMessages.demo) {
@@ -60,9 +60,16 @@ export const waMessages = {
   staff: (s: string) => `Hi ÉLAN! I'd like to book an appointment with ${s}.`,
   pkg: (s: string) => `Hi ÉLAN! I'm interested in the "${s}" package. Please share details.`,
 };
-/** A few Pexels assets are only published as PNG — requesting .jpeg 404s. */
-const PNG_ASSETS = new Set([30294773, 16096141]);
-export const px = (id: number, w = 900, h = 1100) =>
-  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.${PNG_ASSETS.has(id) ? "png" : "jpeg"}?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
+// Local editorial imagery keeps the demo independent of external image hosts.
+const imageGroups: Record<string, number[]> = {
+  hair: [14615063, 7755207, 3993451, 8834048, 36327550],
+  skin: [8460604, 7321552, 7321353, 7321715, 7479557, 3373716, 33793884],
+  nails: [30294773, 6135672, 7321735, 7321731],
+  bridal: [29624009, 31252207, 33461102, 29545940, 33497582, 1552542],
+};
+export const px = (id: number, _w = 900, _h = 1100) => {
+  const group = Object.entries(imageGroups).find(([, ids]) => ids.includes(id))?.[0] ?? "artist";
+  return `/images/${group}.jpg`;
+};
 export const fmtPKR = (n: number) => `Rs ${n.toLocaleString("en-PK")}`;
 export const fmtDuration = (m: number) => (m >= 60 ? `${Math.floor(m / 60)}h${m % 60 ? ` ${m % 60}m` : ""}` : `${m} min`);

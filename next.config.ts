@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Arena's preview serves the dev app through an e2b.app proxy.
+  allowedDevOrigins: ["*.e2b.app", "arena.ai", "*.arena.ai"],
   images: {
     remotePatterns: [{ protocol: "https", hostname: "images.pexels.com" }],
     formats: ["image/avif", "image/webp"],
