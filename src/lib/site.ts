@@ -1,4 +1,4 @@
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elanbeauty.demo.wordbitx.pk";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://saloon.wordbitx.pk";
 export const site = {
   name: "ÉLAN Beauty Studio",
   shortName: "ÉLAN",
@@ -7,7 +7,7 @@ export const site = {
   phone: "+92 325 1888841",
   phoneHref: "tel:+923251888841",
   whatsapp: "923251888841",
-  email: "info@wordbitx.pk",
+  email: "info@wordbitx.com",
   address: { street: "12-B, Main Boulevard, Gulberg III", city: "Lahore", region: "Punjab", postal: "54660", country: "PK" },
   geo: { lat: 31.5169, lng: 74.3484 },
   mapsEmbed: "https://www.google.com/maps?q=31.5169,74.3484&z=16&hl=en&output=embed",
@@ -31,7 +31,7 @@ export const site = {
 };
 export const wordbitx = {
   name: "WordbitX",
-  url: "https://wordbitx.pk/",
+  url: "https://wordbitx.com",
   tagline: "We create amazing digital products.",
   /** WordbitX sales and support contact. */
   phone: site.phone,
