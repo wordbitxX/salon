@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: site.description,
   applicationName: site.name,
   keywords: ["best salon in Lahore", "beauty salon Lahore", "ladies salon Lahore", "bridal makeup Lahore", "hair salon Lahore"],
-  authors: [{ name: "WordbitX", url: "https://wordbitx.pk/" }],
+  authors: [{ name: "WordbitX", url: "https://wordbitx.com" }],
   creator: "WordbitX",
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
   icons: { icon: "/icon.svg" },
